@@ -1,11 +1,9 @@
 ### Site Settings ###
 title               : nurhidayat86.github.io
 description         : >-
-                      Hi there! I'm Arif Nurhidayat, a passionate Data Scientist at a financial service company. 
-                      I specialize in building machine learning models and creating impactful data-driven solutions.
-                      Reach out to me at nurhidayat86@gmail.com for collaborations or just to chat about the exciting world of data science!.
-baseurl             : "" #"/portfolYOU"            # Change to empty quotes if you are hosting your site at <your-username>.github.io directly
-repository          : yousinix/portfolYOU      # Change to <your-username>/<your-username>.github.io (or remove it if you don't need remote projects)
+                      I am a Data Scientist, working in a fintech.
+baseurl             : ""            # Change to empty quotes if you are hosting your site at <your-username>.github.io directly
+# repository          : yousinix/portfolYOU      # Change to <your-username>/<your-username>.github.io (or remove it if you don't need remote projects)
 remote_theme        : yousinix/portfolYOU
 open_new_tab        : false                    # Opens external URLs in new tab (works for posts, projects and navbar only)
 
@@ -20,20 +18,18 @@ nav_exclude:                                            # The following paths ar
   - pages/tags.html
   - pages/404.html
   - pages/index.md
- # - documentation/partials/**                           # For Documentation Only
-
 
 ### Author Info ###
 author:
   name              : Arif Nurhidayat
   image             : https://i.imgur.com/uyDNQnn.jpg
-  behance           : nurhidayat86
+  # behance           : your_username
 # dribbble          : your_username
   email             : nurhidayat86@gmail.com
   # facebook          : your_username
   github            : nurhidayat86
 # gitlab            : your_username
-instagram         : langitbirujingga
+# instagram         : your_username
 # kaggle            : your_username
   linkedin          : nurhidayatarif
   medium            : nurhidayat86
@@ -57,8 +53,6 @@ collections:
   projects:
     output: true
     permalink: /projects/:name
-#  elements:                                             # For Documentation Only
-#    output: true                                        # For Documentation Only
 
 
 ### Disqus ###
@@ -90,11 +84,6 @@ defaults:
       type: "projects"
     values:
       layout: "page"
-#  - scope:                                              # For Documentation Only
-#      path: ""                                          # For Documentation Only
-#      type: "elements"                                  # For Documentation Only
-#    values:                                             # For Documentation Only
-#      layout: "element"                                 # For Documentation Only
   - scope:
       path: ""
       type: "posts"
