@@ -53,12 +53,12 @@ const CONFIG = {
   },
   seo: { title: 'Portfolio of Ariful Alam', description: '', imageURL: '' },
   social: {
-    linkedin: 'ariful-alam',
-    x: 'arif_szn',
-    mastodon: 'arifszn@mastodon.social',
+    linkedin: 'nurhidayatarif',
+    x: '',
+    mastodon: '',
     researchGate: '',
     facebook: '',
-    instagram: '',
+    instagram: 'langitbirujingga',
     reddit: '',
     threads: '',
     youtube: '', // example: 'pewdiepie'
@@ -70,44 +70,40 @@ const CONFIG = {
     stackoverflow: '', // example: '1/jeff-atwood'
     discord: '',
     telegram: '',
-    website: 'https://www.arifszn.com',
+    website: '',
     phone: '',
-    email: '',
+    email: 'nurhidayat86@gmail.com',
   },
   resume: {
     fileUrl:
-      'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf', // Empty fileUrl will hide the `Download Resume` button.
+      '', // Empty fileUrl will hide the `Download Resume` button.
   },
   skills: [
-    'PHP',
-    'Laravel',
-    'JavaScript',
-    'React.js',
-    'Node.js',
-    'Nest.js',
-    'MySQL',
-    'PostgreSQL',
-    'Git',
-    'Docker',
-    'PHPUnit',
-    'CSS',
-    'Antd',
-    'Tailwind',
+    'Python',
+    'SQL',
+    'C++'
   ],
   experiences: [
     {
-      company: 'Company Name',
-      position: 'Position',
-      from: 'September 2021',
+      company: 'GXS Bank',
+      position: 'Sr. Data Scientist',
+      from: 'September 2022',
       to: 'Present',
-      companyLink: 'https://example.com',
+      companyLink: 'https://gxs.com.sg',
     },
     {
-      company: 'Company Name',
-      position: 'Position',
-      from: 'July 2019',
-      to: 'August 2021',
-      companyLink: 'https://example.com',
+      company: 'Home Credit Indonesia',
+      position: 'Data Science Chapter Lead',
+      from: 'April 2019',
+      to: 'April 2022',
+      companyLink: 'https://homecredit.co.id',
+    },
+    {
+      company: 'Strukton Rail',
+      position: 'Development Engineer (Remote)',
+      from: 'March 2018',
+      to: 'December 2018',
+      companyLink: 'https://strukton.com/',
     },
   ],
   certifications: [
