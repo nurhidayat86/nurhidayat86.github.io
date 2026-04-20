@@ -1,8 +1,26 @@
 [
   {
-    "score": 10,
-    "title": "Example Article Title",
-    "summary": "Short description of the article. Replace this placeholder with your own Medium or blog posts. Higher score means the article appears earlier.",
-    "article_url": "https://medium.com/@nurhidayat86"
+    "score": 20,
+    "title": "Understanding survivorship bias: How suvivorship bias affects your predictive model",
+    "summary": "In this article, I explain survivorship bias in machine learning: training or updating models on data that has already passed an earlier filter (such as a prior credit scorecard) means “failed” or rejected cases are missing from the sample, which warps both predictors and evaluation. He uses Abraham Wald’s World War II bomber analysis as intuition, then walks through credit-risk examples where important features lose range and skew after filtering, and why a new model trained only on survivors can look artificially superior to the old one on the same biased dataset. The article closes with practical mitigations—ideally a random or unfiltered control cohort for honest training and comparison, and when that is too costly, a champion–challenger setup so both models are scored on comparable live splits instead of a single pre-filtered history.",
+    "article_url": "https://medium.com/@nurhidayat86/how-suvivorship-bias-affects-your-predictive-model-bc980e4b5731"
+  },
+  {
+    "score": 19,
+    "title": "My Data Science Learning Journey",
+    "summary": "In this post, I explain that data science feels overwhelming at first but becomes tractable if you rebuild statistics and programming fundamentals (Python first for production use, R optional), then layer on machine learning and domain topics. He frames the post as a curated reading and viewing list aligned with his own focus—finance (credit scoring, acquisition), marketing, and product work on structured or semi-structured data—and recommends An Introduction to Statistical Learning versus The Elements of Statistical Learning (ISL for accessibility and practice, ESL for deeper math, with ISL now in Python), Christoph Molnar’s free Interpretable Machine Learning for explainability from simple models through SHAP/LIME, Naeem Siddiqi’s Intelligent Credit Scoring for applied scorecard work, and Josh Starmer’s StatQuest YouTube channel as an unusually clear way to demystify algorithms like XGBoost.",
+    "article_url": "https://medium.com/@nurhidayat86/my-data-science-learning-journey-b9c0e2d96a83"
+  },
+  {
+    "score": 17,
+    "title": "Consider these factors before building machine learning models",
+    "summary": "This article frames machine learning projects as easy to derail late in delivery when hidden data issues, shifting definitions of success, or production realities only surface after modeling has started. It walks through bias (including survivorship between filters and outcomes, and careless handling of “missing” signals—such as treating non-users of an app like low-engagement users, or misreading conversion when applications are rejected upstream), and suggests structured questions for business stakeholders about filtering, imputation, and unreliable sources. It then ties model objective to algorithm and governance needs (for example, interpretability and stability in regulated credit risk, and calibration implications if scores will feed downstream finance). Business constraints cover how the model will actually be used (expansion vs. over-localized targeting, avoiding campaigns that recruit high-risk customers). Data quality emphasizes train/serve alignment, drift monitoring concepts like PSI/CSI, and keeping backup predictors when strong features are unstable. Latency separates real-time vs. batch scoring and notes engineering patterns (precalculation, batch scores) to meet SLAs. Finally, cost–benefit argues for out-of-time evaluation plus live experiments (A/B or champion–challenger) to validate real uplift, while accounting for recurring costs such as bureau APIs or cloud inference.",
+    "article_url": "https://medium.com/@nurhidayat86/consider-these-factors-before-building-machine-learning-models-da30e8435e4d"
+  },
+  {
+    "score": 16,
+    "title": "Building an LLM-Powered X Influencer with Google Gemini and Google Cloud Platform",
+    "summary": "This guide describes an end-to-end pattern for automating X posts with Google Gemini and GCP: it motivates using Gemini’s large context for content ideation (trending angles, hashtags, audience tone) so a simple prompt-driven flow can replace a heavier RAG stack for this use case, then walks through obtaining X API credentials and rate limits, preparing Google AI Studio and Gemini API keys plus gcloud CLI, Docker, and a GCP project. The core implementation is a small Python service that calls Gemini (example: gemini-1.5-flash) to draft text, uses tweepy to publish via the X API, and exposes a Flask HTTP endpoint so Cloud Run can host the containerized app with secrets passed as environment variables. Finally, Cloud Scheduler issues periodic HTTP requests to that endpoint, turning the stack into a scheduled “virtual account manager” for posting, with suggestions to extend it (for example, news APIs and sentiment) beyond the basic demo.",
+    "article_url": "https://medium.com/@nurhidayat86/building-an-llm-powered-x-influencer-with-google-gemini-and-google-cloud-platform-87568970d5ba"
   }
 ]
