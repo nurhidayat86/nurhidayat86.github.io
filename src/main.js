@@ -171,7 +171,6 @@ function renderProfile(profile) {
 function parsePortfolioJsonl(rawText) {
   const projects = [];
 
-?
   rawText
     .split(/\r?\n/)
     .map((line) => line.trim())
