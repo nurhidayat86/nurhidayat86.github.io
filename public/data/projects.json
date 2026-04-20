@@ -8,7 +8,7 @@
   {
     "score": 19,
     "title": "Agentic Scorecard",
-    "summary": "Agentic Scorecard is an automated framework designed to modernize credit risk modeling by integrating Large Language Models (LLMs) with human in the loop. The repository features an end-to-end pipeline that utilizes agentic workflows to automate scorecard development workflow, putting human as supervisor (approver), and produce high-accuracy scorecards that meet strict regulatory standards for interpretability. By utilizing AI as a scorecard designer and human supervisor, this project provides a transparent and scalable solution for developing production-grade credit scoring systems.",
+    "summary": "Agentic Scorecard is an automated framework designed to modernize credit risk modeling by integrating Large Language Models (LLMs) with human in the loop. The repository features an end-to-end pipeline that utilizes agentic workflows to automate scorecard development, putting human as supervisor (approver), and produce high-accuracy scorecards that meet strict regulatory standards for interpretability. By utilizing AI as a scorecard designer and human supervisor, this project provides a transparent and scalable solution for developing production-grade credit scoring systems.",
     "repo_url": "https://github.com/nurhidayat86/agentic-scorecard"
   },
   {
