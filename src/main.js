@@ -168,41 +168,34 @@ function renderProfile(profile) {
   profileContentEl.append(layout);
 }
 
-function parsePortfolioJsonl(rawText) {
+function normalizePortfolio(rawArray) {
+  if (!Array.isArray(rawArray)) {
+    console.warn('Portfolio data must be a JSON array.');
+    return [];
+  }
+
   const projects = [];
 
-  rawText
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .forEach((line, lineNumber) => {
-      if (!line) {
-        return;
-      }
+  rawArray.forEach((item, idx) => {
+    const hasFields =
+      Number.isInteger(item?.score) &&
+      isNonEmptyString(item?.title) &&
+      isNonEmptyString(item?.summary) &&
+      isNonEmptyString(item?.repo_url);
 
-      try {
-        const parsed = JSON.parse(line);
-        const hasFields =
-          Number.isInteger(parsed?.score) &&
-          isNonEmptyString(parsed?.title) &&
-          isNonEmptyString(parsed?.summary) &&
-          isNonEmptyString(parsed?.repo_url);
+    if (!hasFields) {
+      console.warn(`Skipped invalid portfolio item at index ${idx}`);
+      return;
+    }
 
-        if (!hasFields) {
-          console.warn(`Skipped invalid portfolio row at line ${lineNumber + 1}`);
-          return;
-        }
-
-        projects.push({
-          score: parsed.score,
-          title: parsed.title.trim(),
-          summary: parsed.summary.trim(),
-          repoUrl: parsed.repo_url.trim(),
-          index: projects.length
-        });
-      } catch (error) {
-        console.warn(`Unable to parse JSONL line ${lineNumber + 1}`, error);
-      }
+    projects.push({
+      score: item.score,
+      title: item.title.trim(),
+      summary: item.summary.trim(),
+      repoUrl: item.repo_url.trim(),
+      index: projects.length
     });
+  });
 
   return projects.sort((a, b) => {
     if (b.score !== a.score) {
@@ -248,12 +241,12 @@ function renderPortfolio(projects) {
 }
 
 async function loadPortfolio() {
-  const response = await fetch('/data/portfolio.jsonl');
+  const response = await fetch('/data/portfolio.json');
   if (!response.ok) {
     throw new Error('Failed to load portfolio data.');
   }
 
-  return parsePortfolioJsonl(await response.text());
+  return normalizePortfolio(await response.json());
 }
 
 async function loadProfile() {

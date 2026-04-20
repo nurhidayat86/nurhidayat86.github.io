@@ -4,7 +4,7 @@ A mobile-friendly, dark-themed, vertically organized portfolio template for GitH
 
 This project renders:
 - A **Profile** section from `YAML` config
-- A **Portfolio** section from `JSONL` data sorted by `score` (highest first)
+- A **Portfolio** section from `JSON` data sorted by `score` (highest first)
 
 ## Features
 
@@ -34,7 +34,7 @@ This project renders:
 │  ├─ config/
 │  │  └─ profile.yaml
 │  └─ data/
-│     └─ portfolio.jsonl
+│     └─ portfolio.json
 ├─ docs/
 │  └─ portfolio-prd.md
 ├─ package.json
@@ -139,11 +139,11 @@ Notes:
 - If photo is missing/invalid, a placeholder avatar is shown.
 - Email is rendered as a `mailto:` link.
 
-### 2) Configure Portfolio (`JSONL`)
+### 2) Configure Portfolio (`JSON`)
 
-Edit `public/data/portfolio.jsonl`.
+Edit `public/data/portfolio.json`.
 
-Each line must be valid JSON and include:
+The file must be a JSON array of objects. Each object must include:
 - `score` (integer)
 - `title`
 - `summary`
@@ -151,15 +151,27 @@ Each line must be valid JSON and include:
 
 Example:
 
-```jsonl
-{"score": 95, "title": "Project Alpha", "summary": "A web platform for managing digital workflows.", "repo_url": "https://github.com/username/project-alpha"}
-{"score": 88, "title": "Project Beta", "summary": "Automation tools for repetitive engineering tasks.", "repo_url": "https://github.com/username/project-beta"}
+```json
+[
+  {
+    "score": 95,
+    "title": "Project Alpha",
+    "summary": "A web platform for managing digital workflows.",
+    "repo_url": "https://github.com/username/project-alpha"
+  },
+  {
+    "score": 88,
+    "title": "Project Beta",
+    "summary": "Automation tools for repetitive engineering tasks.",
+    "repo_url": "https://github.com/username/project-beta"
+  }
+]
 ```
 
 Behavior:
 - Higher `score` appears first.
 - If scores are equal, file order is preserved.
-- Invalid rows are skipped.
+- Invalid items are skipped with a warning in the browser console.
 
 ### 3) Add Profile Photo Asset (Optional)
 
@@ -252,8 +264,8 @@ Use this quick checklist if you are deploying for the first time:
 - **Profile/portfolio not showing**  
   Check:
   - `public/config/profile.yaml` is valid YAML
-  - each `portfolio.jsonl` row is valid JSON
-  - required fields exist
+  - `public/data/portfolio.json` is a valid JSON array
+  - required fields exist on each project object
 
 - **Photo does not appear**  
   Verify the image path exists under `public/` and `photo.src` is correct.
