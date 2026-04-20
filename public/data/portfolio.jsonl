@@ -1,15 +1,10 @@
 {
-    "score": 95, 
+    "score": 20, 
     "title": "Project Alpha", 
     "summary": "A web platform for managing digital workflows.", 
-    "repo_url": "https://github.com/username/project-alpha"}
+    "repo_url": "https://github.com/nurhidayat86/agentic-voc-insight"}
 {
-    "score": 88, 
+    "score": 19, 
     "title": "Project Beta", 
     "summary": "Automation tools for repetitive engineering tasks.", 
-    "repo_url": "https://github.com/username/project-beta"}
-{
-    "score": 88, 
-    "title": "Project Gamma", 
-    "summary": "An analytics dashboard with real-time insights.", 
-    "repo_url": "https://github.com/username/project-gamma"}
+    "repo_url": "https://github.com/nurhidayat86/agentic-scorecard"}

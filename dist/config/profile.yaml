@@ -1,0 +1,22 @@
+photo:
+  src: ""
+  alt: "Portrait of Your Name"
+
+name: "Arif Nurhidayat"
+email: "nurhidayat86@gmail.com"
+current_position: "Senior Data Scientist"
+headlines:
+  - "Building scalable web apps"
+  - "Open source contributor"
+
+cv_links:
+  - label: "CV (English)"
+    url: "https://example.com/cv-en.pdf"
+  - label: "CV (Bahasa)"
+    url: "https://example.com/cv-id.pdf"
+
+social_links:
+  - label: "GitHub"
+    url: "https://github.com/username"
+  - label: "LinkedIn"
+    url: "https://linkedin.com/in/username"
