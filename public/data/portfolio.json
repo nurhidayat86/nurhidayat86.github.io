@@ -1,14 +1,26 @@
 [
   {
     "score": 20,
-    "title": "Project Alpha",
-    "summary": "A web platform for managing digital workflows.",
+    "title": "Agentic VOC Insight",
+    "summary": "Agentic VOC Insight is an automated intelligence pipeline that leverages multi-agent AI systems to transform raw Voice of Customer (VOC) data into structured, actionable insights. By orchestrating specialized agents for sentiment analysis, trend identification, and thematic categorization, the project provides a scalable solution for interpreting large volumes of unstructured feedback.",
     "repo_url": "https://github.com/nurhidayat86/agentic-voc-insight"
   },
   {
     "score": 19,
-    "title": "Project Beta",
-    "summary": "Automation tools for repetitive engineering tasks.",
+    "title": "Agentic Scorecard",
+    "summary": "Agentic Scorecard is an automated framework designed to modernize credit risk modeling by integrating Large Language Models (LLMs) with human in the loop. The repository features an end-to-end pipeline that utilizes agentic workflows to automate scorecard development workflow, putting human as supervisor (approver), and produce high-accuracy scorecards that meet strict regulatory standards for interpretability. By utilizing AI as a scorecard designer and human supervisor, this project provides a transparent and scalable solution for developing production-grade credit scoring systems.",
     "repo_url": "https://github.com/nurhidayat86/agentic-scorecard"
+  },
+  {
+    "score": 18,
+    "title": "RAG Quran Kemenag",
+    "summary": "A Python-based Retrieval-Augmented Generation (RAG) project that turns Indonesian Quran and tafseer data into a searchable, AI-powered chatbot workflow: it cleans and translates source content, builds structured vector datasets (translation, tafseer, and surah summaries), and indexes them into ChromaDB for semantic retrieval, then uses Gemini + LangChain to answer user questions in a terminal chat interface.",
+    "repo_url": "https://github.com/nurhidayat86/rag-quran-kemenag"
+  },
+  {
+    "score": 17,
+    "title": "Telegram Trading Shaman",
+    "summary": "A Python-based Telegram bot project designed to monitor trading signals and automatically notify group members when actionable market conditions are detected, helping traders react faster without constant manual chart watching. The repository packages a lightweight alerting workflow with dependency management and Docker support for easier deployment.",
+    "repo_url": "https://github.com/nurhidayat86/telegram-trading-shaman"
   }
 ]
