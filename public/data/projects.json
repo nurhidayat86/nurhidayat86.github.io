@@ -22,5 +22,17 @@
     "title": "Telegram Trading Shaman",
     "summary": "A Python-based Telegram bot project designed to monitor trading signals and automatically notify group members when actionable market conditions are detected, helping traders react faster without constant manual chart watching. The repository packages a lightweight alerting workflow with dependency management and Docker support for easier deployment.",
     "repo_url": "https://github.com/nurhidayat86/telegram-trading-shaman"
+  },
+  {
+    "score": 16,
+    "title": "Alpha Vantage Data Logger in GCP",
+    "summary": "a small Python data pipeline that pulls cryptocurrency market data from the Alpha Vantage API and lands it in Google Cloud Storage, organized by ticker (with a configurable symbol list). The project is meant to run on Google Cloud as a containerized workload: you build a Docker image, deploy it as a Cloud Run Job, and trigger it on a schedule with Cloud Scheduler (using authenticated HTTP calls), so price snapshots are collected reliably without manual runs. It is a practical example of cloud-native ingestion—secrets via environment variables, IAM for job invocation, and repeatable GCP setup steps for a personal analytics or trading-data stack.",
+    "repo_url": "https://github.com/nurhidayat86/av_data_logger"
+  },
+  {
+    "score": 15,
+    "title": "Credit Risk App in Streamlit",
+    "summary": "a Streamlit-based Python application for building classic credit-risk scorecards with logistic regression: you upload tabular data, choose features, split into train and test sets, and explore both automated and manual Weight-of-Evidence (WoE) binning. It bundles practical model-development utilities—information value and correlation-driven feature screening, L2-regularized hyperparameter tuning, and tooling to translate the fitted model into an interpretable scorecard plus SQL-friendly artifacts—so analysts can go from raw borrower attributes to a deployable scoring view in one interactive workflow.",
+    "repo_url": "https://github.com/nurhidayat86/credit-risk-app"
   }
 ]
