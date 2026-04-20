@@ -15,8 +15,18 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text-primary);
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
   line-height: 1.55;
 }
 
@@ -119,6 +129,22 @@ a:focus-visible {
 
 .separator {
   color: var(--text-secondary);
+}
+
+.page-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  padding: 0.25rem 0;
+}
+
+.page-nav a.active {
+  color: var(--text-primary);
+  font-weight: 600;
+  text-decoration: underline;
 }
 
 .portfolio-list {

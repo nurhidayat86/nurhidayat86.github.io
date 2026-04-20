@@ -6,7 +6,7 @@
     <title>Portfolio</title>
     <meta
       name="description"
-      content="Single-page portfolio with profile and project showcase."
+      content="Single-page portfolio with profile, projects, and articles."
     />
   </head>
   <body>
@@ -16,9 +16,54 @@
         <div id="profile-content" class="profile-content" aria-live="polite"></div>
       </section>
 
-      <section id="portfolio" class="card" aria-labelledby="portfolio-title">
-        <h2 id="portfolio-title">Portfolio</h2>
-        <div id="portfolio-list" class="portfolio-list" aria-live="polite"></div>
+      <nav id="page-nav" class="page-nav" aria-label="Primary">
+        <a href="#/" data-route="home">Home</a>
+        <span class="separator" aria-hidden="true">|</span>
+        <a href="#/projects" data-route="projects">Projects</a>
+        <span class="separator" aria-hidden="true">|</span>
+        <a href="#/articles" data-route="articles">Articles</a>
+      </nav>
+
+      <section
+        id="featured-projects"
+        class="card page-section"
+        data-page="home"
+        aria-labelledby="featured-projects-title"
+      >
+        <h2 id="featured-projects-title">Featured Projects</h2>
+        <div id="featured-projects-list" class="portfolio-list" aria-live="polite"></div>
+      </section>
+
+      <section
+        id="featured-articles"
+        class="card page-section"
+        data-page="home"
+        aria-labelledby="featured-articles-title"
+      >
+        <h2 id="featured-articles-title">Featured Articles</h2>
+        <div id="featured-articles-list" class="portfolio-list" aria-live="polite"></div>
+      </section>
+
+      <section
+        id="projects"
+        class="card page-section"
+        data-page="projects"
+        aria-labelledby="projects-title"
+        hidden
+      >
+        <h2 id="projects-title">Projects</h2>
+        <div id="projects-list" class="portfolio-list" aria-live="polite"></div>
+      </section>
+
+      <section
+        id="articles"
+        class="card page-section"
+        data-page="articles"
+        aria-labelledby="articles-title"
+        hidden
+      >
+        <h2 id="articles-title">Articles</h2>
+        <div id="articles-list" class="portfolio-list" aria-live="polite"></div>
       </section>
     </main>
 

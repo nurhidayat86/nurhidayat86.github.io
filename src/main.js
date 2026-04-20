@@ -1,8 +1,42 @@
 import './style.css';
 import yaml from 'js-yaml';
+import siteConfigRaw from '../config.yaml?raw';
+
+const DEFAULT_FEATURED_LIMIT = 5;
+const VALID_ROUTES = ['home', 'projects', 'articles'];
+
+function resolveFeaturedLimit(value) {
+  if (Number.isInteger(value) && value >= 0) {
+    return value;
+  }
+  return DEFAULT_FEATURED_LIMIT;
+}
+
+function loadSiteConfig(rawYaml) {
+  try {
+    const parsed = yaml.load(rawYaml);
+    return {
+      featuredProjects: resolveFeaturedLimit(parsed?.featured?.projects),
+      featuredArticles: resolveFeaturedLimit(parsed?.featured?.articles)
+    };
+  } catch (error) {
+    console.warn('Failed to parse config.yaml; using defaults.', error);
+    return {
+      featuredProjects: DEFAULT_FEATURED_LIMIT,
+      featuredArticles: DEFAULT_FEATURED_LIMIT
+    };
+  }
+}
+
+const siteConfig = loadSiteConfig(siteConfigRaw);
 
 const profileContentEl = document.querySelector('#profile-content');
-const portfolioListEl = document.querySelector('#portfolio-list');
+const featuredProjectsListEl = document.querySelector('#featured-projects-list');
+const featuredArticlesListEl = document.querySelector('#featured-articles-list');
+const projectsListEl = document.querySelector('#projects-list');
+const articlesListEl = document.querySelector('#articles-list');
+const pageSections = document.querySelectorAll('.page-section');
+const navEl = document.querySelector('#page-nav');
 
 function isNonEmptyString(value) {
   return typeof value === 'string' && value.trim().length > 0;
@@ -168,36 +202,36 @@ function renderProfile(profile) {
   profileContentEl.append(layout);
 }
 
-function normalizePortfolio(rawArray) {
+function normalizeEntries(rawArray, urlField, label) {
   if (!Array.isArray(rawArray)) {
-    console.warn('Portfolio data must be a JSON array.');
+    console.warn(`${label} data must be a JSON array.`);
     return [];
   }
 
-  const projects = [];
+  const entries = [];
 
   rawArray.forEach((item, idx) => {
     const hasFields =
       Number.isInteger(item?.score) &&
       isNonEmptyString(item?.title) &&
       isNonEmptyString(item?.summary) &&
-      isNonEmptyString(item?.repo_url);
+      isNonEmptyString(item?.[urlField]);
 
     if (!hasFields) {
-      console.warn(`Skipped invalid portfolio item at index ${idx}`);
+      console.warn(`Skipped invalid ${label} item at index ${idx}`);
       return;
     }
 
-    projects.push({
+    entries.push({
       score: item.score,
       title: item.title.trim(),
       summary: item.summary.trim(),
-      repoUrl: item.repo_url.trim(),
-      index: projects.length
+      url: item[urlField].trim(),
+      index: entries.length
     });
   });
 
-  return projects.sort((a, b) => {
+  return entries.sort((a, b) => {
     if (b.score !== a.score) {
       return b.score - a.score;
     }
@@ -206,47 +240,47 @@ function normalizePortfolio(rawArray) {
   });
 }
 
-function renderPortfolio(projects) {
-  portfolioListEl.innerHTML = '';
+function renderEntryList(listEl, entries, linkLabel, emptyMessage) {
+  listEl.innerHTML = '';
 
-  if (projects.length === 0) {
+  if (entries.length === 0) {
     const empty = document.createElement('p');
     empty.className = 'message';
-    empty.textContent = 'No portfolio projects configured yet.';
-    portfolioListEl.append(empty);
+    empty.textContent = emptyMessage;
+    listEl.append(empty);
     return;
   }
 
-  projects.forEach((project) => {
+  entries.forEach((entry) => {
     const article = document.createElement('article');
     article.className = 'portfolio-item';
 
     const title = document.createElement('h3');
     title.className = 'project-title';
-    title.textContent = project.title;
+    title.textContent = entry.title;
 
     const summary = document.createElement('p');
     summary.className = 'muted';
-    summary.textContent = project.summary;
+    summary.textContent = entry.summary;
 
     const link = document.createElement('a');
-    link.href = project.repoUrl;
+    link.href = entry.url;
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
-    link.textContent = 'View GitHub Repository';
+    link.textContent = linkLabel;
 
     article.append(title, summary, link);
-    portfolioListEl.append(article);
+    listEl.append(article);
   });
 }
 
-async function loadPortfolio() {
-  const response = await fetch('/data/portfolio.json');
+async function loadJson(path, urlField, label) {
+  const response = await fetch(path);
   if (!response.ok) {
-    throw new Error('Failed to load portfolio data.');
+    throw new Error(`Failed to load ${label} data.`);
   }
 
-  return normalizePortfolio(await response.json());
+  return normalizeEntries(await response.json(), urlField, label);
 }
 
 async function loadProfile() {
@@ -258,15 +292,79 @@ async function loadProfile() {
   return yaml.load(await response.text());
 }
 
+function getRouteFromHash() {
+  const raw = window.location.hash.replace(/^#\/?/, '').toLowerCase();
+  const route = raw.split(/[/?]/)[0] || 'home';
+  return VALID_ROUTES.includes(route) ? route : 'home';
+}
+
+function applyRoute(route) {
+  pageSections.forEach((section) => {
+    const isActive = section.dataset.page === route;
+    section.hidden = !isActive;
+  });
+
+  navEl.querySelectorAll('a[data-route]').forEach((link) => {
+    const isActive = link.dataset.route === route;
+    link.classList.toggle('active', isActive);
+    if (isActive) {
+      link.setAttribute('aria-current', 'page');
+    } else {
+      link.removeAttribute('aria-current');
+    }
+  });
+}
+
+function initRouter() {
+  window.addEventListener('hashchange', () => applyRoute(getRouteFromHash()));
+  applyRoute(getRouteFromHash());
+}
+
 async function bootstrap() {
   try {
-    const [profile, portfolio] = await Promise.all([loadProfile(), loadPortfolio()]);
+    const [profile, projects, articles] = await Promise.all([
+      loadProfile(),
+      loadJson('/data/projects.json', 'repo_url', 'projects'),
+      loadJson('/data/articles.json', 'article_url', 'articles')
+    ]);
+
     renderProfile(profile || {});
-    renderPortfolio(portfolio);
+
+    renderEntryList(
+      featuredProjectsListEl,
+      projects.slice(0, siteConfig.featuredProjects),
+      'View GitHub Repository',
+      'No projects configured yet.'
+    );
+    renderEntryList(
+      featuredArticlesListEl,
+      articles.slice(0, siteConfig.featuredArticles),
+      'Read Article',
+      'No articles configured yet.'
+    );
+    renderEntryList(
+      projectsListEl,
+      projects,
+      'View GitHub Repository',
+      'No projects configured yet.'
+    );
+    renderEntryList(
+      articlesListEl,
+      articles,
+      'Read Article',
+      'No articles configured yet.'
+    );
+
+    initRouter();
   } catch (error) {
     console.error(error);
     profileContentEl.innerHTML = '<p class="message">Unable to load profile data.</p>';
-    portfolioListEl.innerHTML = '<p class="message">Unable to load portfolio data.</p>';
+    featuredProjectsListEl.innerHTML =
+      '<p class="message">Unable to load projects data.</p>';
+    featuredArticlesListEl.innerHTML =
+      '<p class="message">Unable to load articles data.</p>';
+    projectsListEl.innerHTML = '<p class="message">Unable to load projects data.</p>';
+    articlesListEl.innerHTML = '<p class="message">Unable to load articles data.</p>';
   }
 }
 

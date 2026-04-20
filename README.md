@@ -3,17 +3,24 @@
 A mobile-friendly, dark-themed, vertically organized portfolio template for GitHub Pages.
 
 This project renders:
-- A **Profile** section from `YAML` config
-- A **Portfolio** section from `JSON` data sorted by `score` (highest first)
+
+- A **Profile** section from `YAML` config (shown on every page as a header)
+- A **Featured Projects** section showing the top 5 projects by `score` (home page)
+- A **Featured Articles** section showing the top 5 articles by `score` (home page)
+- A **Projects** page listing all projects sorted by `score` (descending)
+- An **Articles** page listing all articles sorted by `score` (descending)
+- A centered in-page navigation bar (`Home | Projects | Articles`) between the
+  Profile and the content sections, powered by URL hash routes (`#/`,
+  `#/projects`, `#/articles`).
 
 ## Features
 
-- Single-page layout
+- Single-page layout with hash-based routing for Home / Projects / Articles
 - Responsive design (mobile-first)
 - Dark theme
 - Profile photo with fallback placeholder
 - Horizontal CV/social links with `|` separators
-- Portfolio project ordering by priority score
+- Project and article ordering by priority score (featured = top 5)
 
 ## Tech Stack
 
@@ -27,6 +34,7 @@ This project renders:
 ```text
 .
 ├─ index.html
+├─ config.yaml
 ├─ src/
 │  ├─ main.js
 │  └─ style.css
@@ -34,7 +42,8 @@ This project renders:
 │  ├─ config/
 │  │  └─ profile.yaml
 │  └─ data/
-│     └─ portfolio.json
+│     ├─ projects.json
+│     └─ articles.json
 ├─ docs/
 │  └─ portfolio-prd.md
 ├─ package.json
@@ -105,45 +114,66 @@ npm run preview
 
 ## How to Use This Template
 
+### 0) Site Config (`config.yaml` at repo root)
+
+Controls how many items the home page shows under **Featured Projects** and
+**Featured Articles**. The full lists on the `Projects` and `Articles` pages
+are unaffected by these values.
+
+```yaml
+featured:
+  projects: 5
+  articles: 5
+```
+
+Notes:
+
+- `config.yaml` is read at **build time** (inlined into the bundle by Vite),
+  so changes take effect after the next `npm run build` / GitHub Pages deploy.
+- Values must be non-negative integers. Anything else falls back to a default
+  of `5`, with a warning logged in the browser console.
+
 ### 1) Configure Profile (`YAML`)
 
 Edit `public/config/profile.yaml`:
 
 ```yaml
 photo:
-  src: "/assets/profile.jpg"
-  alt: "Portrait of Your Name"
+  src: '/assets/profile.jpg'
+  alt: 'Portrait of Your Name'
 
-name: "Your Name"
-email: "you@example.com"
-current_position: "Senior Software Engineer"
+name: 'Your Name'
+email: 'you@example.com'
+current_position: 'Senior Software Engineer'
 headlines:
-  - "Building scalable web apps"
-  - "Open source contributor"
+  - 'Building scalable web apps'
+  - 'Open source contributor'
 
 cv_links:
-  - label: "CV (English)"
-    url: "https://example.com/cv-en.pdf"
-  - label: "CV (Bahasa)"
-    url: "https://example.com/cv-id.pdf"
+  - label: 'CV (English)'
+    url: 'https://example.com/cv-en.pdf'
+  - label: 'CV (Bahasa)'
+    url: 'https://example.com/cv-id.pdf'
 
 social_links:
-  - label: "GitHub"
-    url: "https://github.com/username"
-  - label: "LinkedIn"
-    url: "https://linkedin.com/in/username"
+  - label: 'GitHub'
+    url: 'https://github.com/username'
+  - label: 'LinkedIn'
+    url: 'https://linkedin.com/in/username'
 ```
 
 Notes:
+
 - `photo.src` can be a local path (for example `/assets/profile.jpg`) or external URL.
 - If photo is missing/invalid, a placeholder avatar is shown.
 - Email is rendered as a `mailto:` link.
 
-### 2) Configure Portfolio (`JSON`)
+### 2) Configure Projects (`JSON`)
 
-Edit `public/data/portfolio.json`.
+Edit `public/data/projects.json`.
 
 The file must be a JSON array of objects. Each object must include:
+
 - `score` (integer)
 - `title`
 - `summary`
@@ -169,11 +199,41 @@ Example:
 ```
 
 Behavior:
+
 - Higher `score` appears first.
 - If scores are equal, file order is preserved.
 - Invalid items are skipped with a warning in the browser console.
+- The home page shows only the top 5 projects under **Featured Projects**; the
+  full list is reachable via the `Projects` link in the page nav.
 
-### 3) Add Profile Photo Asset (Optional)
+### 3) Configure Articles (`JSON`)
+
+Edit `public/data/articles.json`.
+
+The file must be a JSON array of objects. Each object must include:
+
+- `score` (integer)
+- `title`
+- `summary`
+- `article_url`
+
+Example:
+
+```json
+[
+  {
+    "score": 95,
+    "title": "Designing Resilient Pipelines",
+    "summary": "Lessons learned from production outages.",
+    "article_url": "https://medium.com/@username/designing-resilient-pipelines"
+  }
+]
+```
+
+Behavior mirrors projects: sorted by `score` descending, top 5 shown on the
+home page under **Featured Articles**, full list on the `Articles` page.
+
+### 4) Add Profile Photo Asset (Optional)
 
 If using local image path, place your photo in `public/assets/`, for example:
 
@@ -185,13 +245,14 @@ Then set:
 
 ```yaml
 photo:
-  src: "/assets/profile.jpg"
-  alt: "Portrait of Your Name"
+  src: '/assets/profile.jpg'
+  alt: 'Portrait of Your Name'
 ```
 
 ## Deploy to GitHub Pages
 
 This repository already includes GitHub Actions workflows:
+
 - `.github/workflows/deploy.yml`
 - `.github/workflows/test-deploy.yml`
 
@@ -205,6 +266,7 @@ This repository already includes GitHub Actions workflows:
 ### What GitHub Actions Does
 
 When you push to `main`, `.github/workflows/deploy.yml` runs automatically:
+
 1. Checks out your repository code.
 2. Sets up Node.js.
 3. Installs packages with `npm ci`.
@@ -213,6 +275,7 @@ When you push to `main`, `.github/workflows/deploy.yml` runs automatically:
 6. Deploys the artifact to GitHub Pages.
 
 When you open a pull request to `main`, `.github/workflows/test-deploy.yml` runs checks:
+
 - `npm ci`
 - `npm run lint`
 - `npm run prettier`
@@ -220,7 +283,7 @@ When you open a pull request to `main`, `.github/workflows/test-deploy.yml` runs
 
 ### Day-to-Day Deployment Flow
 
-1. Edit your files (`profile.yaml`, `portfolio.jsonl`, or UI files).
+1. Edit your files (`profile.yaml`, `projects.json`, `articles.json`, or UI files).
 2. Commit your changes:
 
 ```bash
@@ -261,11 +324,13 @@ Use this quick checklist if you are deploying for the first time:
   - you pushed to the branch configured in workflow (`main`)
   - GitHub Pages source is set to `GitHub Actions`
 
-- **Profile/portfolio not showing**  
+- **Profile/projects/articles not showing**  
   Check:
   - `public/config/profile.yaml` is valid YAML
-  - `public/data/portfolio.json` is a valid JSON array
-  - required fields exist on each project object
+  - `public/data/projects.json` is a valid JSON array with `score`, `title`,
+    `summary`, `repo_url` on each item
+  - `public/data/articles.json` is a valid JSON array with `score`, `title`,
+    `summary`, `article_url` on each item
 
 - **Photo does not appear**  
   Verify the image path exists under `public/` and `photo.src` is correct.

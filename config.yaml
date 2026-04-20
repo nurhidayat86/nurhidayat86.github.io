@@ -1,0 +1,8 @@
+# Site-wide configuration.
+# Controls how many items appear on the home page under
+# "Featured Projects" and "Featured Articles". The full lists
+# remain available via the Projects / Articles pages regardless
+# of these values.
+featured:
+  projects: 5
+  articles: 5

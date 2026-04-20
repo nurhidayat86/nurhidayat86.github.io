@@ -1,22 +1,23 @@
 photo:
-  src: ""
-  alt: "Portrait of Your Name"
+  src: "/config/ptrofile_picture.JPG"
+  alt: "Portrait of Arif Nurhidayat"
 
 name: "Arif Nurhidayat"
 email: "nurhidayat86@gmail.com"
 current_position: "Senior Data Scientist"
 headlines:
-  - "Building scalable web apps"
-  - "Open source contributor"
+  - "FinTech Innovator | Leveraging AI & Analytics to Drive Revenue Growth, Risk Mitigation, and Cost Savings in Lending & Payment Systems"
 
 cv_links:
-  - label: "CV (English)"
-    url: "https://example.com/cv-en.pdf"
-  - label: "CV (Bahasa)"
-    url: "https://example.com/cv-id.pdf"
+  - label: "CV (pdf)"
+    url: "https://drive.google.com/file/d/1gs4wRzQeLZEJTQw-hljxtVYQz0YqqSPV/view?usp=drive_link"
+  - label: "CV (txt)"
+    url: "https://drive.google.com/file/d/1cXDXzXt_0KWlKWJ0TywkCzZxYJTOkbmY/view?usp=drive_link"
 
 social_links:
-  - label: "GitHub"
-    url: "https://github.com/username"
   - label: "LinkedIn"
-    url: "https://linkedin.com/in/username"
+    url: "https://www.linkedin.com/in/nurhidayatarif/"
+  - label: "GitHub"
+    url: "https://github.com/nurhidayat86"
+  - label: "Medium"
+    url: "https://medium.com/@nurhidayat86"
